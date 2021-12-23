@@ -167,6 +167,7 @@ namespace RAP
         //4. 
         public static List<Publication> fetchBasicPublicationDetails(Researcher r)
         {
+            List<Publication> publications = new List<Publication>();
             //连接mysql
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -177,21 +178,25 @@ namespace RAP
                 conn.Open();
 
                 //创建命令对象
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title from researcher", conn);
+                MySqlCommand cmd = new MySqlCommand("select doi, title, authors, year, type,cite_as, available from publication", conn);
 
                 //执行命令,ExcuteReader返回的是DataReader对象
                 rdr = cmd.ExecuteReader();
 
-                // //循环单行读取数据，当读取为null时，就退出循环. 从数据库里读出以后，往我们声明的researcher变量里存
+                // //循环单行读取数据，当读取为null时，就退出循环. 从数据库里读出以后，往我们声明的publication变量里存
                 while (rdr.Read())
                 {
 
-                    ResearcherList.Add(new Researcher
+                    publications.Add(new Publication
                     {
-                        ID = rdr.GetInt32(0),
-                        FamilyName = rdr.GetString(1),
-                        GivenName = rdr.GetString(2),
-                        Title = rdr.GetString(3)
+                        Doi = rdr.GetString(0),
+                        Title = rdr.GetString(1),
+                        Authors = rdr.GetString(2),
+                        PublicationYear = rdr.GetDateTime(3).Year,
+                        Type = ParseEnum<OutputType>(rdr.GetString(4)),
+                        CiteAs = rdr.GetString(5),
+                        AvailableDate = rdr.GetDateTime(6),
+
                     });
                 }
             }
@@ -214,14 +219,14 @@ namespace RAP
                 }
             }
 
-            return ResearcherList;
+            return publications;
         }
 
         //5.
         public static Publication completePublicationDetails(Publication p)
         {
 
-
+            
             //连接mysql
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -240,14 +245,12 @@ namespace RAP
                 // //循环单行读取数据，当读取为null时，就退出循环. 从数据库里读出以后，往我们声明的researcher变量里存
                 while (rdr.Read())
                 {
+                    p.Doi = rdr.GetString(0);
+                    p.Type = ParseEnum<OutputType>(rdr.GetString(4));
+                    p.CiteAs = rdr.GetString(5);
+                    p.AvailableDate = rdr.GetDateTime(6);
+                    p.Age();
 
-                    ResearcherList.Add(new Researcher
-                    {
-                        ID = rdr.GetInt32(0),
-                        FamilyName = rdr.GetString(1),
-                        GivenName = rdr.GetString(2),
-                        Title = rdr.GetString(3)
-                    });
                 }
             }
             //容错报错
@@ -268,14 +271,14 @@ namespace RAP
                     conn.Close();
                 }
             }
-            return Publication;
+            return p;
         }
 
         //6. 
         public static List<int> fetchPublicationCounts(DateTime firstPub, DateTime latestPub)
         {
             List<int> yearCount = new List<int>();
-            List<Publication> p =
+            Researcher r = new Researcher();
 
 
             return yearCount;
