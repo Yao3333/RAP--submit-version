@@ -1,9 +1,16 @@
 ﻿<Application x:Class="RAP.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RAP"
+             xmlns:local="clr-namespace:RAP.Control"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:ResearcherController x:Key="researcherController"/>
+        <ObjectDataProvider x:Key="researcherList"
+                            ObjectInstance="{StaticResource researcherController}"
+                            MethodName="LoadReseachers">
+        </ObjectDataProvider>
+
+
+
     </Application.Resources>
 </Application>

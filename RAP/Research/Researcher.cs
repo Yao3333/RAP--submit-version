@@ -25,19 +25,36 @@ namespace RAP.Research
         public String Email { get; set; }
         public String Photo { get; set; }
 
-
-
+        public Position Position { get; set; }
+        
         //methods below
         public Position GetCurrentJob()
         {
-
+            Position ps = new Position();
+            return ps;
         }
-        public String CurrentJobTitle() { }
-        public DateTime CurrentJobStart() { }
-        public Position GetEarliestJob() { }
-        public DateTime EarliestStart() { }
-        public float Tenure() { }
-        public int PublicationsCount() { }
+        public String CurrentJobTitle()
+        {
+            return "";//返回信息
+        }
+        public DateTime CurrentJobStart()
+        {
+            return DateTime.Now;//返回信息
+        }
+        public Position GetEarliestJob()
+        {
+            Position ps = new Position();
+            return ps;
+        }
+        public DateTime EarliestStart()
+        {
+            return DateTime.Now;//返回信息
+        }
+        public float Tenure()
+        {
+            return 0;
+        }
+        public int PublicationsCount() { return 0; }
 
     }
 }

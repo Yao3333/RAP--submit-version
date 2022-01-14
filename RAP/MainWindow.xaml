@@ -4,9 +4,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RAP"
+        xmlns:View="clr-namespace:RAP.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="486" Width="800" Loaded="Window_Loaded">
     <Grid>
-        
+        <TabControl HorizontalAlignment="Left" Height="420" Margin="0,0,-0.4,0" VerticalAlignment="Top" Width="794">
+            <TabItem Header="Research">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,-33.2">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="215*"/>
+                        <ColumnDefinition Width="385*"/>
+                        <ColumnDefinition Width="188*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--1 researcher list panel -->
+                    <Grid Grid.Column="0" x:Name="researchlist" Margin="0,0,2.2,-0.6" Grid.RowSpan="2">
+
+                        <Button Content="search" HorizontalAlignment="Left" Margin="144,23,0,0" VerticalAlignment="Top" Width="41" RenderTransformOrigin="0.068,0.359" Click="Button_Click"/>
+                        <TextBox Height="23" TextWrapping="Wrap" x:Name="fullName" Text="name" Margin="20,23,77,381.4"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="20,61,0,0" x:Name="level" VerticalAlignment="Top" Width="155"/>
+                        <ListBox x:Name="lbx_ResearchList"  HorizontalAlignment="Left" Height="256" Margin="18,107,0,0" VerticalAlignment="Top" Width="185" SelectionChanged="lbx_ResearchList_SelectionChanged"/>
+
+                    </Grid>
+                    <!--2 researcher details panel -->
+                    <Grid Grid.Column="1" x:Name="researchdetails" Margin="1.8,0,0,-0.6" Grid.RowSpan="2">
+                        <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Source="{Binding Image}"/>
+                        <Label Content="Name:" HorizontalAlignment="Left" Margin="137,10,0,0" VerticalAlignment="Top" Width="62"/>
+                        <Label Content="Title:" HorizontalAlignment="Left" Margin="137,36,0,0" VerticalAlignment="Top"/>
+                        <Label Content="School/Unit:" HorizontalAlignment="Left" Margin="137,62,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Campus:" HorizontalAlignment="Left" Margin="137,88,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Email:" HorizontalAlignment="Left" Margin="137,114,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Current job title:" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Commenced with institution:" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Commenced current position:" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Tenure:" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Publications:" HorizontalAlignment="Left" Margin="10,277,0,0" VerticalAlignment="Top"/>
+                        <Label Content="3-year average:" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Performance:" HorizontalAlignment="Left" Margin="10,329,0,0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="name" HorizontalAlignment="Left" Margin="204,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="title" HorizontalAlignment="Left" Margin="204,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="school" HorizontalAlignment="Left" Margin="224,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="campus" HorizontalAlignment="Left" Margin="204,93,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="email" HorizontalAlignment="Left" Margin="204,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="currentjob" HorizontalAlignment="Left" Margin="119,158,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="commencedwithinstitution" HorizontalAlignment="Left" Margin="191,189,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="commencedcurrentposition" HorizontalAlignment="Left" Margin="191,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="tenure" HorizontalAlignment="Left" Margin="63,251,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="publications" HorizontalAlignment="Left" Margin="93,283,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="average" HorizontalAlignment="Left" Margin="109,307,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="performance" HorizontalAlignment="Left" Margin="101,334,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    </Grid>
+                    <!--3 publication panel -->
+                    <Grid Grid.Column="2" x:Name="publicationDetails" Margin="0,0,0,-0.6" Grid.RowSpan="2">
+                        <View:PublicationDetailsView/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!--4 reports panel -->
+            <TabItem Header="Report">
+                <Grid Background="#FFE5E5E5" Height="393" Margin="0,0,0,-0.2" VerticalAlignment="Bottom">
+                    <View:ReportView />
+                </Grid>
+            </TabItem>
+            
+            
+        </TabControl>
+
+
+
+
+
+
+
     </Grid>
 </Window>

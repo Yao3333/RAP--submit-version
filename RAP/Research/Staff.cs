@@ -29,7 +29,8 @@ namespace RAP.Research
         {
 
             float tempThreeAver = threeYearAverage;
-            EmploymentLevel level = GetCurrentJob.Level();
+            Researcher rsMethod = new Researcher();//TODO
+            EmploymentLevel level = rsMethod.GetCurrentJob().Level;
 
 
             Dictionary<EmploymentLevel, float> ExpPubNumDic = new Dictionary<EmploymentLevel, float>

@@ -11,6 +11,10 @@ namespace RAP.Control
     {
         public static List<Publication> loadPublicationsFor(Researcher r)
         {
+            List<Publication> lst = new List<Publication>();
+            //函数逻辑
+
+            return lst;
 
         }
     }

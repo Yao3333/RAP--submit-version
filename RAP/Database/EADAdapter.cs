@@ -48,7 +48,7 @@ namespace RAP
 
         //researcher信息功能 函数 用到的
         //1. 
-        public static List<Researcher> fetchBasicResearcherDetails()
+        public static List<Researcher> fetchBasicResearcherDetails(string name = "", string level = "")
         {
             List<Researcher> ResearcherList = new List<Researcher>();
 
@@ -60,9 +60,18 @@ namespace RAP
             {
                 //打开数据库连接
                 conn.Open();
-
+                var sql = @"select id, given_name, family_name, title from researcher   where 1=1 "; 
+                          
+                if (!string.IsNullOrEmpty(name))
+                {
+                    sql+=   " and (given_name like '%" + name + "% '  or family_name like '%" + name + "%')";
+                }
+                if (!string.IsNullOrEmpty(level))
+                {
+                    sql += " and level = '" + level + "'";
+                }
                 //创建命令对象
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title from researcher", conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                 //执行命令,ExcuteReader返回的是DataReader对象
                 rdr = cmd.ExecuteReader();
@@ -73,11 +82,14 @@ namespace RAP
 
                     ResearcherList.Add(new Researcher
                     {
+
                         ID = rdr.GetInt32(0),
-                        FamilyName = rdr.GetString(1),
-                        GivenName = rdr.GetString(2),
-                        Title = rdr.GetString(4)
+                        Title = rdr.GetString(3),
+                        FamilyName = rdr.GetString(2),
+                        GivenName = rdr.GetString(1),
+                        
                     });
+                   
                 }
             }
             //容错报错
@@ -99,7 +111,7 @@ namespace RAP
                 }
             }
 
-            return ResearcherList;
+            return ResearcherList; //最后要返回最新 researcher 的对象集合
 
         }
 
@@ -161,6 +173,10 @@ namespace RAP
         //3.
         public static Researcher completeResearcherDetails(Researcher r)
         {
+            Researcher rs = fetchFullResearcherDetails(r.ID);
+            //
+
+            return rs;
         }
 
 
@@ -226,7 +242,7 @@ namespace RAP
         public static Publication completePublicationDetails(Publication p)
         {
 
-            
+
             //连接mysql
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
